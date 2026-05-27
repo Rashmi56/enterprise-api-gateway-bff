@@ -1,7 +1,8 @@
+com/architect/gateway/config/WebConfig.class
 com/architect/gateway/service/AnalyticsService.class
 com/architect/gateway/ApiGatewayBffApplication.class
+com/architect/gateway/config/RedisConfig.class
 com/architect/gateway/controller/GatewayController.class
 com/architect/gateway/repository/TrafficLogRepository.class
 com/architect/gateway/service/RateLimiterService.class
-com/architect/gateway/config/RedisConfig.class
 com/architect/gateway/model/TrafficLog.class

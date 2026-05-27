@@ -1,5 +1,6 @@
 /workspaces/enterprise-api-gateway-bff/backend/src/main/java/com/architect/gateway/ApiGatewayBffApplication.java
 /workspaces/enterprise-api-gateway-bff/backend/src/main/java/com/architect/gateway/config/RedisConfig.java
+/workspaces/enterprise-api-gateway-bff/backend/src/main/java/com/architect/gateway/config/WebConfig.java
 /workspaces/enterprise-api-gateway-bff/backend/src/main/java/com/architect/gateway/controller/GatewayController.java
 /workspaces/enterprise-api-gateway-bff/backend/src/main/java/com/architect/gateway/model/TrafficLog.java
 /workspaces/enterprise-api-gateway-bff/backend/src/main/java/com/architect/gateway/repository/TrafficLogRepository.java
