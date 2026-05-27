@@ -33,23 +33,33 @@ function App() {
 
   const updateChartMetrics = (time, successIncr, failIncr) => {
     setMetrics(prev => {
-      const lastIndex = prev.length - 1;
-      if (lastIndex >= 0 && prev[lastIndex].time === time) {
-        const updated = [...prev];
-        updated[lastIndex].Allowed += successIncr;
-        updated[lastIndex].Blocked += failIncr;
+      // Create a clean, isolated shallow copy of the state array to modify safely
+      const updated = [...prev];
+      const lastIndex = updated.length - 1;
+
+      // If this exact timestamp millisecond window already exists, aggregate the counters
+      if (lastIndex >= 0 && updated[lastIndex].time === time) {
+        updated[lastIndex] = {
+          ...updated[lastIndex],
+          Allowed: updated[lastIndex].Allowed + successIncr,
+          Blocked: updated[lastIndex].Blocked + failIncr
+        };
         return updated;
       }
-      return [...prev, { time, Allowed: successIncr, Blocked: failIncr }].slice(-15);
+
+      // Otherwise, safely append a fresh time-series bucket and keep the last 15 ticks
+      return [...updated, { time, Allowed: successIncr, Blocked: failIncr }].slice(-15);
     });
   };
 
   // Stress-Testing Loop: Fire 25 rapid requests sequentially to slam the Redis token bucket
   const simulateTrafficSpike = async () => {
-    setSystemLogs(prev => [`⚡ Launching automated distributed traffic spike...`, ...prev]);
-    for (let i = 0; i < 25; i++) {
+    setSystemLogs(prev => [`⚡ Launching paced distributed traffic spike...`, ...prev]);
+    // Fire 20 requests to completely exhaust the 10-request rolling window limit
+    for (let i = 0; i < 20; i++) {
       fireRequest();
-      await new Promise(r => setTimeout(r, 80)); // 80ms interval execution
+      // Increase pacing delay to 350ms to prevent browser socket saturation
+      await new Promise(r => setTimeout(r, 350)); 
     }
   };
 
